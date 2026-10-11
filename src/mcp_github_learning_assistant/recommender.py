@@ -53,10 +53,12 @@ async def recommend_repos(role, target_tech, level, goal, count):
     """Fetch repo data from GitHub and assemble recommendations."""
     tech = _guess_seed_key(target_tech)
     if not tech:
-        recs = []
         return RecommendationList(
             recommendations=[],
-            message=f"No curated seeds for '{target_tech}'. Suggested: try Spring boot, FastAPI, Vue, React, Electron, HarmonyOS.",
+            message=(
+                f"No curated seeds for '{target_tech}'. Suggested: try Spring boot, "
+                "FastAPI, Vue, React, Electron, HarmonyOS."
+            ),
         )
 
     async with await github_client() as client:
@@ -80,7 +82,14 @@ async def recommend_repos(role, target_tech, level, goal, count):
                 rm.raise_for_status()
                 content = rm.json().get("content", "")
                 readme_len = len(base64.b64decode(content).decode("utf-8", errors="ignore"))
-                doc = "excellent" if readme_len > 10000 else ("good" if readme_len > 3000 else ("fair" if readme_len > 500 else "poor"))
+                if readme_len > 10000:
+                    doc = "excellent"
+                elif readme_len > 3000:
+                    doc = "good"
+                elif readme_len > 500:
+                    doc = "fair"
+                else:
+                    doc = "poor"
             except Exception:
                 doc = "fair"
 

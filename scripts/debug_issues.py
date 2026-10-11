@@ -1,9 +1,9 @@
 """Debug why issue queries return empty."""
 
 import asyncio
-import os
 
 from dotenv import load_dotenv
+
 from mcp_github_learning_assistant.github_client import github_client
 
 

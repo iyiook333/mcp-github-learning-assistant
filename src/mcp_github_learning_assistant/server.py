@@ -13,8 +13,8 @@ app = MCPServer("mcp-github-learning-assistant")
 
 @app.tool()
 async def get_server_info() -> str:
-    """获取 MCP Server 的基本信息，用于测试连接是否成功。"""
-    return "MCP GitHub Learning Assistant v0.1.0 - 帮助开发者发现适合学习的开源项目"
+    """Return basic server info to verify the MCP connection works."""
+    return "MCP GitHub Learning Assistant v0.1.0 - discover open-source projects worth learning"
 
 
 @app.tool()

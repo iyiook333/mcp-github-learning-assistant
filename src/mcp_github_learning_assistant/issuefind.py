@@ -45,7 +45,7 @@ async def find_first_issues(owner: str, repo: str, labels) -> FirstIssueList:
             "number": it.get("number"),
             "title": it.get("title"),
             "url": it.get("html_url"),
-            "labels": [l.get("name") for l in it.get("labels", [])],
+            "labels": [label.get("name") for label in it.get("labels", [])],
             "preview": _clean(it.get("body") or ""),
         }
         for it in ordered[:10]

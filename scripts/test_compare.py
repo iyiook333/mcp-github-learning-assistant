@@ -1,5 +1,7 @@
 import asyncio
+
 from mcp_github_learning_assistant.comparer import compare_repos
+
 
 async def main():
     r = await compare_repos(

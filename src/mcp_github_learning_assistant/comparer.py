@@ -1,5 +1,7 @@
 """Compare candidate repos and suggest which to learn first."""
 
+import base64
+
 from .github_client import github_client
 from .models.outputs import ComparisonResult
 
@@ -11,6 +13,16 @@ def _score(data: dict, language: str, doc_quality: str) -> float:
     doc_score = {"excellent": 3.0, "good": 2.0, "fair": 1.0, "poor": 0.0}.get(doc_quality, 1.0)
     lang_match = 3.0  # since filtered by language, assume high match
     return round(stars_score + doc_score + lang_match, 1)
+
+
+def _doc_quality(readme_len: int) -> str:
+    if readme_len > 10000:
+        return "excellent"
+    elif readme_len > 3000:
+        return "good"
+    elif readme_len > 500:
+        return "fair"
+    return "poor"
 
 
 async def compare_repos(repos: list, user_level: str) -> ComparisonResult:
@@ -28,9 +40,9 @@ async def compare_repos(repos: list, user_level: str) -> ComparisonResult:
             try:
                 rm = await client.get(f"/repos/{full.strip()}/readme")
                 rm.raise_for_status()
-                import base64
-                txt = base64.b64decode(rm.json().get("content", "")).decode("utf-8", errors="ignore")
-                doc = "excellent" if len(txt) > 10000 else ("good" if len(txt) > 3000 else ("fair" if len(txt) > 500 else "poor"))
+                txt = base64.b64decode(rm.json().get("content", ""))
+                txt = txt.decode("utf-8", errors="ignore")
+                doc = _doc_quality(len(txt))
             except Exception:
                 doc = "fair"
             rows.append(
@@ -53,6 +65,7 @@ async def compare_repos(repos: list, user_level: str) -> ComparisonResult:
         comparison=rows,
         best_for_learning=best,
         user_level_note=(
-            f"Scored with a bias toward beginner-friendly docs because user level is '{user_level}'."
+            f"Scored with a bias toward beginner-friendly docs because "
+            f"user level is '{user_level}'."
         ),
     )

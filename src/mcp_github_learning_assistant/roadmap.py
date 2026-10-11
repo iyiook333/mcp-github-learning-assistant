@@ -69,8 +69,9 @@ async def build_roadmap(owner: str, repo: str, depth: int) -> RepoRoadmap:
             }
         )
 
+    skipped = len([item for item in items if item.get("type") == "dir"]) - len(dirs)
     summary = (
         f"Generated learning sequence with {len(modules)} relevant modules "
-        f"from {owner}/{repo} top level (skipped {len([i for i in items if i.get('type') == 'dir']) - len(dirs)} non-source directories)."
+        f"from {owner}/{repo} top level (skipped {skipped} non-source directories)."
     )
     return RepoRoadmap(repo=f"{owner}/{repo}", modules=modules, summary=summary)

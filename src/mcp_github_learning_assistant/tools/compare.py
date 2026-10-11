@@ -9,7 +9,10 @@ async def compare_tool(arguments: dict) -> list[TextContent]:
     """Entry point: expects `repos` (list of full names) and optional user_level."""
     repos = arguments.get("repos") or []
     if not isinstance(repos, list) or len(repos) < 2:
-        return [TextContent(type="text", text="Please provide at least 2 repos as list of 'owner/repo'.")]
+        return [TextContent(
+            type="text",
+            text="Please provide at least 2 repos as list of 'owner/repo'.",
+        )]
     level = arguments.get("user_level", "intermediate")
 
     try:
