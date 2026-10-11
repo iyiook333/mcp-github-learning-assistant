@@ -7,15 +7,15 @@ from .models.outputs import RepoRoadmap
 _SKIP_PATTERNS = {
     ".github", ".idea", ".vscode", ".git", ".circleci", ".devcontainer",
     "antora", "config", "buildpack", "gradle", "mvn", "scripts",
-    "distribution", "buildSrc", "build",
-    "framework",  # nested framework folder is different from core
+    "distribution", "buildsrc", "build", "eclipse", "git", "ci",
+    "framework", "checkstyle", "etc",
 }
 
 # Ordered learning priority by directory-name keywords
 _HINTS = [
-    ("docs", "Read documentation first for concepts and setup", 1),
-    ("examples", "Run sample examples to see usage", 2),
-    ("tests", "Read tests to learn expected behavior", 5),
+    ("doc", "Read documentation first for concepts and setup", 1),
+    ("example", "Run sample examples to see usage", 2),
+    ("test", "Read tests to learn expected behavior", 5),
     ("core", "Study core implementation module", 3),
     ("src", "Study main source code", 3),
     ("lib", "Review library internals", 4),
