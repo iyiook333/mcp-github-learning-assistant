@@ -14,6 +14,7 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 | `find_similar_repos` | Find thematically similar repos (same language/topic) for comparison |
 | `find_good_first_issues` | Find beginner-friendly open issues (good first issue / help wanted) |
 | `compare_learning_repos` | Compare 2+ candidate repos and suggest which to learn first |
+| `get_server_info` | Verify the MCP server connection |
 
 ## Screenshots
 

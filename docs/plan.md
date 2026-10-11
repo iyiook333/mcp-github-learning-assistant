@@ -17,12 +17,12 @@
 ## 核心功能
 
 ### Tools
-1. ecommend_learning_repos：根据定位推荐项目
-2. nalyze_repo_for_learning：深度分析项目学习价值
+1. recommend_learning_repos：根据定位推荐项目
+2. analyze_repo_for_learning：深度分析项目学习价值
 3. get_repo_roadmap：生成学习路线
-4. ind_similar_repos：查找相似项目
+4. find_similar_repos：查找相似项目
 5. compare_learning_repos：对比多个项目
-6. ind_good_first_issues：找适合新手的 issue
+6. find_good_first_issues：找适合新手的 issue
 7. get_trending_repos_for_learning：发现热门学习项目
 
 ## 技术栈
@@ -40,17 +40,17 @@
 ### Week 1：项目骨架 + recommend tool
 - 搭建项目结构
 - 封装 GitHub API 客户端
-- 实现第一个 Tool：ecommend_learning_repos
+- 实现第一个 Tool：recommend_learning_repos
 - 在 Cherry Studio 中测试
 
 ### Week 2：核心分析工具
-- nalyze_repo_for_learning
+- analyze_repo_for_learning
 - get_repo_roadmap
-- ind_similar_repos
+- find_similar_repos
 
 ### Week 3：高级工具 + Prompts
 - compare_learning_repos
-- ind_good_first_issues
+- find_good_first_issues
 - get_trending_repos_for_learning
 - 添加 MCP Prompts
 
