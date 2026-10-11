@@ -8,30 +8,47 @@ from .models.outputs import FirstIssueList
 _TAG_RE = re.compile(r"<[^>]+>")
 
 
-async def find_first_issues(owner: str, repo: str, labels):
-    """Fetch issues filtered by starter-friendly labels."""
-    q_label = ",".join(x.strip() for x in labels[0].split(","))
-    async with await github_client() as client:
-        resp = await client.get(
-            f"/repos/{owner}/{repo}/issues",
-            params={"labels": q_label, "state": "open", "per_page": 10},
-        )
-        resp.raise_for_status()
-        items = resp.json()
+def _clean(text: str, limit: int = 200) -> str:
+    """Strip HTML tags and truncate text."""
+    return re.sub(_TAG_RE, "", text or "")[:limit].strip()
 
-    issues = []
-    for it in items:
-        if "pull_request" in it:  # GitHub includes PRs, skip them
-            continue
-        body = re.sub(_TAG_RE, "", (it.get("body") or ""))[:200]
-        issues.append(
-            {
-                "number": it.get("number"),
-                "title": it.get("title"),
-                "url": it.get("html_url"),
-                "labels": [l.get("name") for l in it.get("labels", [])],
-                "preview": body.strip(),
-            }
-        )
+
+async def find_first_issues(owner: str, repo: str, labels) -> FirstIssueList:
+    """Fetch open issues matching ANY of the starter-friendly labels (OR query).
+
+    We split multiple labels into separate requests because GitHub API's
+    `labels` param is AND semantics, which almost always yields no results
+    when passing multiple labels together.
+    """
+    label_list = [x.strip() for x in (labels[0] if labels else "").split(",") if x.strip()]
+    if not label_list:
+        label_list = ["good first issue"]
+
+    async with await github_client() as client:
+        all_issues: dict[int, dict] = {}
+        for label in label_list:
+            resp = await client.get(
+                f"/repos/{owner}/{repo}/issues",
+                params={"labels": label, "state": "open", "per_page": 10},
+            )
+            if resp.status_code != 200:
+                continue
+            for it in resp.json():
+                if "pull_request" in it:  # skip PRs
+                    continue
+                all_issues[it["number"]] = it  # dedupe by issue number
+
+    ordered = sorted(all_issues.values(), key=lambda x: x.get("number", 0), reverse=True)
+
+    issues = [
+        {
+            "number": it.get("number"),
+            "title": it.get("title"),
+            "url": it.get("html_url"),
+            "labels": [l.get("name") for l in it.get("labels", [])],
+            "preview": _clean(it.get("body") or ""),
+        }
+        for it in ordered[:10]
+    ]
 
     return FirstIssueList(repo=f"{owner}/{repo}", issues=issues)
