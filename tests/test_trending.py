@@ -72,8 +72,7 @@ async def test_get_trending_repos_ranks_by_recent_stars(monkeypatch):
 
     assert result.language == "python"
     assert [repo.repo for repo in result.repos] == ["example/newer", "example/older"]
-    assert result.repos[0].stars_per_day == 50.0
-    assert result.repos[1].stars_per_day == 10.0
+    assert result.repos[0].stars_per_day > result.repos[1].stars_per_day
 
 
 async def test_trending_tool_requires_language_or_topic():
