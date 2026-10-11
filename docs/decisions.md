@@ -84,3 +84,22 @@ commit: d2ab733
 
 MCP 走 stdio 时不需要 HTTP 服务。
 后续若支持远程部署（SSE / streamable HTTP）再考虑引入 FastAPI。
+
+
+---
+
+## 2026-10-11：MCP Inspector 调试通过
+
+使用 MCP 官方 Inspector（npx @modelcontextprotocol/inspector）验证：
+- Server 进程启动正常（stdio 待命）
+- Connect 握手成功
+- Tools 标签列出 get_server_info 和 analyze_repo_for_learning
+- get_server_info Run 后正确返回
+
+结论：MCP 协议层、工具注册层全链路可用，可以进入新工具开发和真实客户端（Cherry Studio）集成阶段。
+
+## 2026-10-11：README 乱码修复
+
+原因：PowerShell 5.1 Set-Content -Encoding UTF8 带 BOM，且代码块语言标注被写入坏字节。
+修复：用 .NET [System.IO.File]::WriteAllText 配合 UTF8Encoding($false) 重写为 UTF-8 无 BOM。
+README 改为英文为主，后续考虑增加 README.zh-CN.md 双语版。
