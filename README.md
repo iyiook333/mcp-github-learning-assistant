@@ -20,7 +20,7 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 <!-- Add screenshots here as you capture them -->
 | MCP Inspector - Tools list | MCP Inspector - analyze_repo_for_learning result |
 |:---:|:---:|
-| ![Inspector Tools](docs/screenshots/inspector-tools.png) | ![Inspector Analyze](docs/screenshots/inspector-analyze.png) |
+| ![Inspector Tools](docs/screenshots/inspector-tools.jpg) | ![Inspector Analyze](docs/screenshots/inspector-analyze.jpg) |
 
 ## Installation
 

@@ -2,11 +2,11 @@
 
 Place the following screenshots here to make README compelling:
 
-## 1. inspector-tools.png
+## 1. inspector-tools.jpg
 Open MCP Inspector (npx @modelcontextprotocol/inspector python -m mcp_github_learning_assistant),
 connect, go to Tools tab, and screenshot the tool list showing all 7 tools.
 
-## 2. inspector-analyze.png
+## 2. inspector-analyze.jpg
 Also in Inspector, select analyze_repo_for_learning, fill in owner=spring-projects, repo=spring-boot,
 and screenshot the input + JSON result.
 
