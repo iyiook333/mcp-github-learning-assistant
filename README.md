@@ -15,6 +15,13 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 | `find_good_first_issues` | Find beginner-friendly open issues (good first issue / help wanted) |
 | `compare_learning_repos` | Compare 2+ candidate repos and suggest which to learn first |
 
+## Screenshots
+
+<!-- Add screenshots here as you capture them -->
+| MCP Inspector - Tools list | MCP Inspector - analyze_repo_for_learning result |
+|:---:|:---:|
+| ![Inspector Tools](docs/screenshots/inspector-tools.png) | ![Inspector Analyze](docs/screenshots/inspector-analyze.png) |
+
 ## Installation
 
 ```bash
