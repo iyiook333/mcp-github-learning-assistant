@@ -37,3 +37,74 @@ class RecommendationList(BaseModel):
 
     recommendations: list[RepoRecommendation]
     message: str
+
+
+class RoadmapModule(BaseModel):
+    """One module in a learning roadmap."""
+
+    name: str
+    hint: str
+    learning_order: int
+    path: str
+
+
+class RepoRoadmap(BaseModel):
+    """Learning roadmap derived from repo structure."""
+
+    repo: str
+    modules: list[RoadmapModule]
+    summary: str
+
+
+class SimilarRepo(BaseModel):
+    """One similar repo result."""
+
+    repo: str
+    stars: int
+    language: str
+    description: str
+    url: str
+
+
+class SimilarRepoList(BaseModel):
+    """List of similar repos."""
+
+    source_repo: str
+    similar: list[SimilarRepo]
+
+
+class FirstIssue(BaseModel):
+    """One good-first-issue entry."""
+
+    number: int
+    title: str
+    url: str
+    labels: list[str]
+    preview: str
+
+
+class FirstIssueList(BaseModel):
+    """List of good first issues."""
+
+    repo: str
+    issues: list[FirstIssue]
+
+
+class ComparisonRow(BaseModel):
+    """One row in a repo comparison."""
+
+    repo: str
+    stars: int
+    language: str
+    description: str
+    updated_at: str | None = None
+    doc_quality: str = "fair"
+    score: float = 0.0
+
+
+class ComparisonResult(BaseModel):
+    """Comparison of multiple repos."""
+
+    comparison: list[ComparisonRow]
+    best_for_learning: str | None
+    user_level_note: str

@@ -6,7 +6,7 @@ import sys
 from dotenv import load_dotenv
 from mcp.server import MCPServer
 
-from .tools import analyze, recommend
+from .tools import analyze, compare, issues, recommend, roadmap, similar
 
 app = MCPServer("mcp-github-learning-assistant")
 
@@ -57,6 +57,56 @@ async def recommend_learning_repos(
         "count": count,
     }
     results = await recommend.recommend_repos_tool(arguments)
+    return results[0].text
+
+
+@app.tool()
+async def get_repo_roadmap(owner: str, repo: str, depth: int = 2) -> str:
+    """Generate a learning roadmap from a repo's top-level structure.
+
+    Args:
+        owner: GitHub user or org name
+        repo: Repository name
+        depth: how deep to explore (reserved; currently uses top level)
+    """
+    results = await roadmap.roadmap_tool({"owner": owner, "repo": repo, "depth": depth})
+    return results[0].text
+
+
+@app.tool()
+async def find_similar_repos(owner: str, repo: str, count: int = 3) -> str:
+    """Find similar repositories (same language/topic) for comparison.
+
+    Args:
+        owner: GitHub user or org name
+        repo: Repository name
+        count: max similar repos to return
+    """
+    results = await similar.similar_tool({"owner": owner, "repo": repo, "count": count})
+    return results[0].text
+
+
+@app.tool()
+async def find_good_first_issues(owner: str, repo: str) -> str:
+    """Find beginner-friendly (good first issue / help wanted) open issues.
+
+    Args:
+        owner: GitHub user or org name
+        repo: Repository name
+    """
+    results = await issues.issues_tool({"owner": owner, "repo": repo})
+    return results[0].text
+
+
+@app.tool()
+async def compare_learning_repos(repos: list[str], user_level: str = "intermediate") -> str:
+    """Compare 2+ repos and suggest which to learn first.
+
+    Args:
+        repos: list of full repo names like ["spring-projects/spring-boot", "quarkusio/quarkus"]
+        user_level: beginner / intermediate / advanced
+    """
+    results = await compare.compare_tool({"repos": repos, "user_level": user_level})
     return results[0].text
 
 
