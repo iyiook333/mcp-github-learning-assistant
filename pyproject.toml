@@ -2,7 +2,7 @@
 name = "mcp-github-learning-assistant"
 version = "0.1.0"
 description = "An MCP server that helps developers discover and learn from GitHub open-source projects"
-authors = [{name = "Your Name", email = "your.email@example.com"}]
+authors = [{name = "iyiook333"}]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.10"
