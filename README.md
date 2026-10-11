@@ -4,13 +4,16 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 
 ## Features
 
-- Recommend learning repositories based on your profile
-- Analyze whether a repository is worth learning
-- Generate a learning roadmap from repo structure
-- Find similar repositories for comparison
-- Compare multiple candidate repos
-- Find good first issues for newcomers
-- Get trending repos for learning
+7 tools to support every stage of open-source learning:
+
+| Tool | Description |
+|------|-------------|
+| `analyze_repo_for_learning` | Score a repo: stars, doc quality, difficulty, prerequisites, suggested learning path |
+| `recommend_learning_repos` | Curated recommendations per tech stack (Spring Boot, FastAPI, Vue, React, Electron, HarmonyOS) |
+| `get_repo_roadmap` | Generate a step-by-step learning roadmap from a repo's directory structure |
+| `find_similar_repos` | Find thematically similar repos (same language/topic) for comparison |
+| `find_good_first_issues` | Find beginner-friendly open issues (good first issue / help wanted) |
+| `compare_learning_repos` | Compare 2+ candidate repos and suggest which to learn first |
 
 ## Installation
 
@@ -34,15 +37,18 @@ export GITHUB_TOKEN=your_github_token
 
 Token scope: fine-grained PAT with no special permissions (public repo read-only) is enough.
 
-## Usage in Cherry Studio
+## Usage in MCP Clients
 
-1. Open Cherry Studio, go to Settings -> MCP
-2. Add an MCP server with the command:
+### MCP Inspector (development)
 
 ```bash
-python -m mcp_github_learning_assistant
+npx @modelcontextprotocol/inspector python -m mcp_github_learning_assistant
 ```
 
+### Cherry Studio
+
+1. Open Cherry Studio, go to Settings -> MCP
+2. Add an MCP server with the command `python -m mcp_github_learning_assistant`
 3. Set the environment variable `GITHUB_TOKEN`
 
 ## Development
@@ -53,13 +59,6 @@ cd mcp-github-learning-assistant
 pip install -e .[dev]
 pytest
 ```
-
-## Tools
-
-| Tool | Description |
-|------|-------------|
-| `get_server_info` | Get server version and description |
-| `analyze_repo_for_learning` | Analyze a GitHub repo: score, difficulty, prerequisites, suggested learning path |
 
 ## License
 

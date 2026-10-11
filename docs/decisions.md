@@ -103,3 +103,41 @@ MCP 走 stdio 时不需要 HTTP 服务。
 原因：PowerShell 5.1 Set-Content -Encoding UTF8 带 BOM，且代码块语言标注被写入坏字节。
 修复：用 .NET [System.IO.File]::WriteAllText 配合 UTF8Encoding($false) 重写为 UTF-8 无 BOM。
 README 改为英文为主，后续考虑增加 README.zh-CN.md 双语版。
+
+
+---
+
+## 2026-10-11：MVP 全部工具实数据验证通过
+
+所有 7 个工具在真实 GitHub 数据下验证成功：
+- spring-boot analysis 评分/难度/路径
+- Spring Boot 仓库推荐（3 条）
+- vscode good-first-issues（10 条）
+- fastapi similar repos（aiohttp/starlette，语义正确）
+- spring-boot vs quarkus vs micronaut 排序
+- spring-boot roadmap（documentation → core → tests 顺序合理）
+
+### Issues 空列表诊断（spring-boot）
+
+连续三次为空，通过 debug_issues.py 三路交叉验证：
+- 无 label 基线 → 有数据（排除连通性）
+- labels=good first issue → []
+- Search API 同条件 → total_count: 0
+
+结论：spring-boot 确实当前 0 条 open good-first-issue（大数据项目常见），
+不是 bug。测试目标切到 microsoft/vscode 后正常返回 10 条。
+产品改进点（下一步）：空结果时返回引导文案而非空 JSON。
+
+### Roadmap 优化史
+
+第一版：按 API 返回顺序取前 10 个目录，充斥 .idea/antora/buildSrc 等噪音。
+第二版：加 _SKIP_PATTERNS 跳过工程目录，按关键词赋学习优先级。
+第三版：修复 "src in buildSrc" 子串误匹配（buildSrc 加入黑名单），
+documentation 通过 "doc" 关键词正确识别为高优先级。
+经验：目录名关键词匹配必须用词边界或黑名单双保险。
+
+### Similar 优化史
+
+第一版按 topic/language 搜索，fastapi 混入 public-apis（只是同为 Python）。
+第二版增加策略：优先非通用 topic，其次从 repo 名/描述提关键词，
+兜底 language-only + stars:>10000。fastapi 现在返回 aiohttp/starlette，语义正确。
