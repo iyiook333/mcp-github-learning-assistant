@@ -1,4 +1,4 @@
-﻿"""Allow running the package with python -m."""
+"""Allow running the package with python -m."""
 
 import asyncio
 
