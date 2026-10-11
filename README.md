@@ -4,7 +4,7 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 
 ## Features
 
-7 tools to support every stage of open-source learning:
+8 tools to support every stage of open-source learning:
 
 | Tool | Description |
 |------|-------------|
@@ -14,6 +14,7 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 | `find_similar_repos` | Find thematically similar repos (same language/topic) for comparison |
 | `find_good_first_issues` | Find beginner-friendly open issues (good first issue / help wanted) |
 | `compare_learning_repos` | Compare 2+ candidate repos and suggest which to learn first |
+| `get_trending_repos_for_learning` | Find breakout repos created recently by language/topic |
 | `get_server_info` | Verify the MCP server connection |
 
 ## Screenshots

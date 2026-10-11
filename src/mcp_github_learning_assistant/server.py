@@ -6,7 +6,7 @@ import sys
 from dotenv import load_dotenv
 from mcp.server import MCPServer
 
-from .tools import analyze, compare, issues, recommend, roadmap, similar
+from .tools import analyze, compare, issues, recommend, roadmap, similar, trending
 
 app = MCPServer("mcp-github-learning-assistant")
 
@@ -107,6 +107,35 @@ async def compare_learning_repos(repos: list[str], user_level: str = "intermedia
         user_level: beginner / intermediate / advanced
     """
     results = await compare.compare_tool({"repos": repos, "user_level": user_level})
+    return results[0].text
+
+
+@app.tool()
+async def get_trending_repos_for_learning(
+    language: str = "",
+    topic: str = "",
+    count: int = 5,
+    min_stars: int = 100,
+    period_days: int = 90,
+) -> str:
+    """Find recently popular repositories suitable for learning.
+
+    Args:
+        language: programming language filter, e.g. Python
+        topic: GitHub topic filter, e.g. fastapi
+        count: maximum repos to return (1-10)
+        min_stars: minimum lifetime stars (default 100)
+        period_days: look-back window in days (1-365)
+    """
+    results = await trending.trending_tool(
+        {
+            "language": language,
+            "topic": topic,
+            "count": count,
+            "min_stars": min_stars,
+            "period_days": period_days,
+        }
+    )
     return results[0].text
 
 

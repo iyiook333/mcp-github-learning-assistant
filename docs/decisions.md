@@ -147,3 +147,10 @@ documentation 通过 "doc" 关键词正确识别为高优先级。
 docs/screenshots/README.md 是给开发者看的临时截图指引，对仓库访客没有价值。
 删除该子文档，截图使用说明并入主 README 的 Screenshots 部分。
 仓库内只保留主 README 一个入口，避免访客在截图目录看到重复说明。
+
+## 2026-10-11：新增 trending 工具
+
+GitHub API 没有官方 trending 接口，工具不再假装能直接取到榜单。
+改用 Search API 近似实现：按 language/topic、最低星数、创建时间和是否 fork/archived 过滤，
+再用 stars / age_days 作为趋势分排序。
+决策：输出明确的 stars_per_day 计算依据，让调用方知道这是可解释的近似，而非官方榜单。

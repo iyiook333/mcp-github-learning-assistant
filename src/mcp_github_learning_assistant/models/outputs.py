@@ -73,6 +73,26 @@ class SimilarRepoList(BaseModel):
     similar: list[SimilarRepo]
 
 
+class TrendingRepo(BaseModel):
+    """One recently popular repo."""
+
+    repo: str
+    stars: int
+    stars_per_day: float
+    language: str
+    description: str
+    url: str
+
+
+class TrendingRepoList(BaseModel):
+    """List of trending repos for learning."""
+
+    language: str | None
+    topic: str | None
+    period_days: int
+    repos: list[TrendingRepo]
+
+
 class FirstIssue(BaseModel):
     """One good-first-issue entry."""
 
