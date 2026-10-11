@@ -21,7 +21,7 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 
 | MCP Inspector - Tools list | MCP Inspector - analyze_repo_for_learning result |
 |:---:|:---:|
-| ![Inspector Tools](docs/screenshots/inspector-tools.jpg) | ![Inspector Analyze](docs/screenshots/inspector-analyze.jpg) |
+| ![Inspector Tools](https://raw.githubusercontent.com/iyiook333/mcp-github-learning-assistant/master/docs/screenshots/inspector-tools.jpg) | ![Inspector Analyze](https://raw.githubusercontent.com/iyiook333/mcp-github-learning-assistant/master/docs/screenshots/inspector-analyze.jpg) |
 
 Screenshots use dark-mode crops under 500KB each.
 

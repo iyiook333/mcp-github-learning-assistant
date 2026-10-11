@@ -146,5 +146,10 @@ async def main():
     await app.run_stdio_async()
 
 
+def run():
+    """Run the MCP server from a console script entry point."""
+    asyncio.run(main())
+
+
 if __name__ == "__main__":
     asyncio.run(main())

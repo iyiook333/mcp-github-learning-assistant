@@ -30,7 +30,7 @@ dev = [
 ]
 
 [project.scripts]
-mcp-github-learning-assistant = "mcp_github_learning_assistant.server:main"
+mcp-github-learning-assistant = "mcp_github_learning_assistant.server:run"
 
 [build-system]
 requires = ["hatchling"]
