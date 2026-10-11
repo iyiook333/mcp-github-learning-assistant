@@ -1,5 +1,8 @@
 # MCP GitHub Learning Assistant
 
+[![PyPI version](https://img.shields.io/pypi/v/mcp-github-learning-assistant.svg)](https://pypi.org/project/mcp-github-learning-assistant/)
+[![CI](https://github.com/iyiook333/mcp-github-learning-assistant/actions/workflows/ci.yml/badge.svg)](https://github.com/iyiook333/mcp-github-learning-assistant/actions/workflows/ci.yml)
+
 An MCP (Model Context Protocol) server that helps developers discover and learn from open-source projects on GitHub, based on their skill level and goals.
 
 ## Features
