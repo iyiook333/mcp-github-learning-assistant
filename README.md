@@ -17,10 +17,11 @@ An MCP (Model Context Protocol) server that helps developers discover and learn 
 
 ## Screenshots
 
-<!-- Add screenshots here as you capture them -->
 | MCP Inspector - Tools list | MCP Inspector - analyze_repo_for_learning result |
 |:---:|:---:|
 | ![Inspector Tools](docs/screenshots/inspector-tools.jpg) | ![Inspector Analyze](docs/screenshots/inspector-analyze.jpg) |
+
+Screenshots use dark-mode crops under 500KB each.
 
 ## Installation
 

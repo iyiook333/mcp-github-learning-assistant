@@ -141,3 +141,9 @@ documentation 通过 "doc" 关键词正确识别为高优先级。
 第一版按 topic/language 搜索，fastapi 混入 public-apis（只是同为 Python）。
 第二版增加策略：优先非通用 topic，其次从 repo 名/描述提关键词，
 兜底 language-only + stars:>10000。fastapi 现在返回 aiohttp/starlette，语义正确。
+
+## 2026-10-11：整理截图文档
+
+docs/screenshots/README.md 是给开发者看的临时截图指引，对仓库访客没有价值。
+删除该子文档，截图使用说明并入主 README 的 Screenshots 部分。
+仓库内只保留主 README 一个入口，避免访客在截图目录看到重复说明。
