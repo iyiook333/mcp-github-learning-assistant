@@ -84,5 +84,3 @@ commit: d2ab733
 
 MCP 走 stdio 时不需要 HTTP 服务。
 后续若支持远程部署（SSE / streamable HTTP）再考虑引入 FastAPI。
-- A. 继续加新工具
-- B. 配置到 Cherry Studio 实测
