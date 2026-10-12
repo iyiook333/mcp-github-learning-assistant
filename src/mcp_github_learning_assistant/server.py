@@ -14,7 +14,7 @@ app = MCPServer("mcp-github-learning-assistant")
 @app.tool()
 async def get_server_info() -> str:
     """Return basic server info to verify the MCP connection works."""
-    return "MCP GitHub Learning Assistant v0.1.0 - discover open-source projects worth learning"
+    return "MCP GitHub Learning Assistant v0.1.1 - discover open-source projects worth learning"
 
 
 @app.tool()

@@ -1,4 +1,4 @@
-﻿# Python
+# Python
 __pycache__/
 *.py[cod]
 *.class
@@ -37,3 +37,11 @@ env/
 
 # pytest
 .pytest_cache/
+
+# AI coding tool artifacts
+.codex_patch
+*.codex_patch
+.codex/
+CLAUDE.md
+.aider*
+.continue/

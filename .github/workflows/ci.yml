@@ -28,3 +28,11 @@ jobs:
 
       - name: Test
         run: pytest -q
+
+      - name: Build distribution
+        run: pip install build && python -m build
+
+      - name: Verify distribution
+        run: |
+          pip install twine
+          twine check dist/*

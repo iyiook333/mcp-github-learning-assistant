@@ -34,6 +34,8 @@ Screenshots use dark-mode crops under 500KB each.
 pip install mcp-github-learning-assistant
 ```
 
+Requires Python 3.10+ and `mcp>=2.3.0`.
+
 ## Configuration
 
 Set your GitHub Personal Access Token:
@@ -49,20 +51,79 @@ export GITHUB_TOKEN=your_github_token
 ```
 
 Token scope: fine-grained PAT with no special permissions (public repo read-only) is enough.
+## Entry Point
+
+After `pip install mcp-github-learning-assistant`, the console command `mcp-github-learning` is available:
+
+```bash
+mcp-github-learning
+```
+
+This is equivalent to `python -m mcp_github_learning_assistant`.
 
 ## Usage in MCP Clients
 
 ### MCP Inspector (development)
 
 ```bash
-npx @modelcontextprotocol/inspector python -m mcp_github_learning_assistant
+npx @modelcontextprotocol/inspector mcp-github-learning
 ```
 
 ### Cherry Studio
 
 1. Open Cherry Studio, go to Settings -> MCP
-2. Add an MCP server with the command `python -m mcp_github_learning_assistant`
+2. Add an MCP server with the command `mcp-github-learning`
 3. Set the environment variable `GITHUB_TOKEN`
+
+### Claude Desktop
+
+Edit `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp-github-learning": {
+      "command": "mcp-github-learning",
+      "env": {
+        "GITHUB_TOKEN": "your_github_token"
+      }
+    }
+  }
+}
+```
+
+> On Windows, if the command is not found, use the full path or fall back to `python -m mcp_github_learning_assistant`.
+
+### DSH / Dify
+
+Add an MCP server of type `stdio`:
+
+```yaml
+name: mcp-github-learning
+transport: stdio
+command: mcp-github-learning
+env:
+  GITHUB_TOKEN: your_github_token
+```
+
+If the client does not support custom `env`, set `GITHUB_TOKEN` at the system level before launching the client.
+
+## Current limitations
+
+These are known and intentional, not bugs. They are listed so the tool's output is not over-trusted.
+
+- **No AI/LLM layer.** Scoring is deterministic: star thresholds, README byte length, and directory-name
+  keyword matching. There are no embeddings and no model calls.
+- **`recommend_learning_repos` uses a curated seed list**, currently covering Spring Boot, FastAPI, Vue,
+  React, Electron and HarmonyOS. Any other stack returns an empty list rather than a bad guess.
+- **Only `get_trending_repos_for_learning` derives its ranking from data** — it computes
+  `stars / age_in_days` and re-sorts, since GitHub has no public trending API.
+- **No HTTP caching, retry, backoff, or pagination.** Unauthenticated GitHub allows 60 requests/hour, and
+  one `recommend_learning_repos` call can spend several of them. Always set `GITHUB_TOKEN`.
+- **Some parameters are accepted but not yet used** (`depth` in `get_repo_roadmap`, `user_level`
+  comparison weighting in `compare_learning_repos`). They are reserved for the next iteration.
+- **Test coverage is partial.** 9 tests cover `analyze`, `roadmap`, `trending` and `info`; the
+  `recommender`, `comparer`, `similar` and `issuefind` modules have none.
 
 ## Development
 
